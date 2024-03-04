@@ -10,18 +10,18 @@
     <div id="container">
         <img src="{{ url_for('static', filename='images/logo.png') }}">
 
-        <form id="mainForm" novalidate>
+        <form id="mainForm" action="/login" method="POST">
             <h2>{{ title }}</h2>
             
             <div class="form-control">
             <label for="user">{{ user }}</label>
-                <input type="text" id="user" placeholder="Enter your User" autocomplete="off">
+                <input type="text" id="user" name="user" placeholder="Enter your User" autocomplete="off">
                 <i class="icon"></i>
             </div>
 
             <div class="form-control">
                 <label for="password">{{ password }}</label>
-                <input type="password" id="password" placeholder="Enter your Password" autocomplete="off">
+                <input type="password" id="password" name="password" placeholder="Enter your Password" autocomplete="off">
                 <i class="icon"></i>
             </div>
             

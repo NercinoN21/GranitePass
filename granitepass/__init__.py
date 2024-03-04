@@ -1,16 +1,21 @@
-"""
-Routine responsible for adding configurations and registering blueprints.
-"""
 from flask import Flask
+from .route_controllers import IndexController, LoginController
 from granitepass.config import Config
-from granitepass.routes import RouteHandler
-from granitepass.pages import loginPage
 
 
-def create_app(config_class=Config):
+CONFIG = Config()
+
+
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config_class)
-    route_handler = RouteHandler()
-    route_handler.add_routes(loginPage(Config()))
-    app.register_blueprint(route_handler.main)
+    app.add_url_rule(
+        CONFIG.index_route,
+        view_func=IndexController.as_view(CONFIG.index_controller),
+    )
+    app.add_url_rule(
+        CONFIG.login_route,
+        view_func=LoginController.as_view(CONFIG.login_controller),
+        methods=['GET', 'POST'],
+    )
+
     return app
