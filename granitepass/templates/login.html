@@ -4,32 +4,31 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GranitePass</title>
+    <title>{{ title }}</title>
 </head>
 <body>
     <div id="container">
         <img src="assets/logo-3.png">
 
         <form id="mainForm" novalidate>
-            <h2>GranitePass</h2>
+            <h2>{{ title }}</h2>
             
             <div class="form-control">
-            <label for="user">User</label>
+            <label for="user">{{ user }}</label>
                 <input type="text" id="user" placeholder="Enter your User" autocomplete="off">
                 <i class="icon"></i>
             </div>
 
             <div class="form-control">
-                <label for="password">Password</label>
+                <label for="password">{{ password }}</label>
                 <input type="password" id="password" placeholder="Enter your Password" autocomplete="off">
                 <i class="icon"></i>
             </div>
             
-            <button type="submit">Go!</button>
+            <button type="submit">{{ enter_btn }}</button>
 
         </form>
         </div>
-
     </div>
 </body>
 </html>

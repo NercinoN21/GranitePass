@@ -15,6 +15,7 @@ class Config:
         self.__password = os.getenv('PASSWORD')
         self.__user = os.getenv('USER')
         self.__enter_btn = os.getenv('ENTER_BTN')
+        self.__login_page = os.getenv('LOGIN_PAGE')
 
     def __str__(self):
         return f"{self.__dict__}"
@@ -50,3 +51,7 @@ class Config:
     @property
     def enter_btn(self):
         return self.__enter_btn
+    
+    @property
+    def login_page(self):
+        return self.__login_page
