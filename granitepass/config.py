@@ -13,9 +13,10 @@ class Config:
         self.__data_file = os.getenv('DATA_FILE')
         self.__tables = os.getenv('TABLES')
         self.__password = os.getenv('PASSWORD')
-        self.__user = os.getenv('USER')
+        self.__user = os.getenv('STR_USER')
         self.__enter_btn = os.getenv('ENTER_BTN')
         self.__login_page = os.getenv('LOGIN_PAGE')
+        self.__login_route = os.getenv('LOGIN_ROUTE')
 
     def __str__(self):
         return f"{self.__dict__}"
@@ -55,3 +56,7 @@ class Config:
     @property
     def login_page(self):
         return self.__login_page
+
+    @property
+    def login_route(self):
+        return self.__login_route

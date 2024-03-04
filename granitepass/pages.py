@@ -11,6 +11,11 @@ class loginPage:
         self.__title = config.project_name
         self.__password = config.password
         self.__user = config.user
+        self.__login_route = config.login_route
+
+    @property
+    def route(self):
+        return self.__login_route
 
     def get_content(self):
         return render_template(self.__login_page, 
