@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <title>{% block title %}Título Padrão{% endblock %}</title>
+</head>
+<body>
+    <h1>Meu Aplicativo Flask</h1>
+    <main>
+        {% block content %}
+        <p>Conteúdo padrão vai aqui.</p>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>Rodapé do aplicativo.</p>
+    </footer>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+</body>
+</html>
