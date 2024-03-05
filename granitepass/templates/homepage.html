@@ -11,17 +11,13 @@
     <h1>{{ title }}</h1>
     
     <div class="hoverContent">
-        <a href="{{ url_for('templates', filename='login.html') }}">
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="hiddenImage">
-        </a>
+        <img src="{{ url_for('static', filename='images/logo-1.png') }}" alt="Logo" class="hiddenImage">
     </div>
     
     <div id="main"> 
     
-    <a href="#">
-        <span class="material-symbols-outlined">arrow_back</span> 
-    </a>    
-    
+    <!-- <span class="material-symbols-outlined">arrow_back</span>  -->
+
     <form id="searchForm" action="/HomePageSearch" method="POST">
         <div id="inputSearch">
             <input type="text" name="search" id="search" placeholder="Search for a site...">
