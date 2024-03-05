@@ -1,5 +1,5 @@
 from flask import Flask
-from .route_controllers import IndexController, LoginController
+from .route_controllers import HomePageSearchController,IndexController, LoginController, HomePageController
 from granitepass.config import Config
 
 
@@ -17,5 +17,16 @@ def create_app():
         view_func=LoginController.as_view(CONFIG.login_controller),
         methods=['GET', 'POST'],
     )
+    app.add_url_rule(
+        '/HomePage',
+        view_func=HomePageController.as_view("home_page_controller"),
+        methods=['GET', 'POST'],
+    )
+    app.add_url_rule(
+        '/HomePageSearch',
+        view_func=HomePageSearchController.as_view("home_page_search_controller"),
+        methods=['POST'],
+    )
+
 
     return app

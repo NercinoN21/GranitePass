@@ -9,44 +9,33 @@
 <body>
     <div id="main">
         
-        <div id="inputSearch">
-            <input type="text" name="search" id="search" placeholder="Busque por uma nota...">
-        </div>
+        <form id="searchForm" action="/HomePageSearch" method="POST">
+            <div id="inputSearch">
+                <input type="text" name="search" id="search" placeholder="Search for a site...">
+            </div>
+        </form>
 
         <div id="screenCards">
-            
-            <div class="note">
-                <div class="noteTitle">
-                    <h3>Site</h3>
-                </div>    
-                <div class="noteContent">
-                    <p>user</p>
-                    <p>password</p>
-                </div>            
-            </div>
-        
-            <div class="note">
-                <div class="noteTitle">
-                    <h3>Site</h3>
-                </div>    
-                <div class="noteContent">
-                    <p>user</p>
-                    <p>password</p>
-                </div>            
-            </div>
 
-            <div class="note">
-                <div class="noteTitle">
-                    <h3>Site</h3>
-                </div>    
-                <div class="noteContent">
-                    <p>user</p>
-                    <p>password</p>
-                </div>            
-            </div>
+            {% if credentials %}
+            {% for credential in credentials %}
+                <div class="note">
+                    <div class="noteTitle">
+                        <h3>{{ credential["site"] }}</h3>
+                    </div>    
+                    <div class="noteContent">
+                        <p>{{ credential["user"] }}</p>
+                        <p>{{ credential["password"] }}</p>
+                    </div>            
+                </div>
+            {% endfor %}
+        {% else %}
+            <p id="notFound">You do not have credentials on this site: {{ site }}.</p>
+        {% endif %}
 
         </div>
 
     </div>
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
 </html>

@@ -1,12 +1,23 @@
 """
 Routine responsible for controlling web routes.
 """
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, jsonify
 from flask.views import View
 from granitepass.config import Config
 
 
 CONFIG = Config()
+# For Testing
+credentials = [
+    {'site': 'site1.com', 'user': 'user1', 'password': 'password1'},
+    {'site': 'site2.com', 'user': 'user2', 'password': 'password2'},
+    {'site': 'site3.com', 'user': 'user3', 'password': 'password3'},
+    {'site': 'site4.com', 'user': 'user4', 'password': 'password4'},
+    {'site': 'site5.com', 'user': 'user5', 'password': 'password5'},
+    {'site': 'site6.com', 'user': 'user6', 'password': 'password6'},
+    {'site': 'site6.com', 'user': 'user6', 'password': 'password6'},
+    {'site': 'site7.com', 'user': 'user8', 'password': 'password9'}
+]
 
 
 class IndexController(View):
@@ -75,7 +86,7 @@ class LoginController(View):
             form_password = request.form[CONFIG.str_password]
             print(f'Credentials: {form_user=} and {form_password=}')
 
-            return redirect(url_for(CONFIG.index_controller))
+            return redirect(url_for('home_page_controller'))
         else:
             self.str_user = self.__capitalize
             self.str_password = self.__capitalize
@@ -88,3 +99,20 @@ class LoginController(View):
                 password=self.str_password,
                 enter_btn=self.enter_btn,
             )
+        
+
+class HomePageController(View):
+    def dispatch_request(self):
+        return render_template('homepage.html',
+                               credentials=credentials)
+
+
+class HomePageSearchController(View):
+    def dispatch_request(self):
+        if request.method == 'POST':
+            form_search = request.form['search']
+            test_filter = [x for x in credentials if form_search in x['site']]
+
+        return render_template('homepage.html',
+                               credentials=test_filter,
+                               site=form_search,)

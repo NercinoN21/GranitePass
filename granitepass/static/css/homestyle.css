@@ -53,11 +53,12 @@ body{
 #screenCards{
     display: flex;
     padding: 20px;
+    flex-wrap: wrap;
 }
 
 .note{
-    flex: 1;
-    margin: 24px;
+    flex:  0 1 calc(33.33% - 20px);
+    margin: 10px;
     width: 348px;
     height: 250px;
     padding: 20px;
@@ -77,4 +78,11 @@ body{
 .noteContent p{
     margin: 5px 10px;
     color: #64748B;
+}
+
+#notFound{
+    color: #fff;
+    font-size: 30px;
+    text-align: center;
+    margin-top: 20px;
 }
