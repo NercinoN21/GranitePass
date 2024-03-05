@@ -3,38 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="{{ url_for('static', filename='css/homestyle.css') }}">
     <title>{{ title }}</title>
 </head>
 <body>
-    <div id="main">
-        
-        <form id="searchForm" action="/HomePageSearch" method="POST">
-            <div id="inputSearch">
-                <input type="text" name="search" id="search" placeholder="Search for a site...">
-            </div>
-        </form>
-
-        <div id="screenCards">
-
-            {% if credentials %}
-            {% for credential in credentials %}
-                <div class="note">
-                    <div class="noteTitle">
-                        <h3>{{ credential["site"] }}</h3>
-                    </div>    
-                    <div class="noteContent">
-                        <p>{{ credential["user"] }}</p>
-                        <p>{{ credential["password"] }}</p>
-                    </div>            
-                </div>
-            {% endfor %}
-        {% else %}
-            <p id="notFound">You do not have credentials on this site: {{ site }}.</p>
-        {% endif %}
-
+    <h1>{{ title }}</h1>
+    
+    <div class="hoverContent">
+        <a href="{{ url_for('templates', filename='login.html') }}">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo" class="hiddenImage">
+        </a>
+    </div>
+    
+    <div id="main"> 
+    
+    <a href="#">
+        <span class="material-symbols-outlined">arrow_back</span> 
+    </a>    
+    
+    <form id="searchForm" action="/HomePageSearch" method="POST">
+        <div id="inputSearch">
+            <input type="text" name="search" id="search" placeholder="Search for a site...">
         </div>
+    </form>
 
+    <div id="screenCards">
+        {% if credentials %}
+        {% for credential in credentials %}
+            <div class="note">
+                <div class="noteTitle">
+                    <h3>{{ credential["site"] }}</h3>
+                </div>    
+                <div class="noteContent">
+                    <p>{{ credential["user"] }}</p>
+                    <p>{{ credential["password"] }}</p>
+                </div>            
+            </div>
+        {% endfor %}
+        
+        {% else %}
+            <p id="notFound">You do not have credentials on this site: {{ site }}.</p> 
+        {% endif %}
     </div>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
 </body>
