@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+
+@keyframes entering {
+    from{opacity: 0; transform: translateY(200px);}
+    to{opacity: 1; transform: translateY(0);}
+}
+
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    background-color: #0F172A;
+    padding: 0px 20px;
+
+    display: flex;
+    height: 100vh;
+
+    align-items: center;
+    justify-content: center;
+}
+
+#main{
+    background-color: #0f172A;
+    padding: 10px 20px;
+
+    width: 1092px;
+    height: 632px;
+}
+
+#inputSearch input{
+    width: 100%;
+    padding: 20px;
+    margin-bottom: 20px;
+   
+    border: none;
+    border-radius: 8px;
+    border-bottom: 1px solid #fff;
+   
+    background-color: transparent;
+    font-size: 30px;
+    color: #fff;
+}
+
+::placeholder{
+    color: #64748B;
+    font-size: 30px;
+}
+
+#screenCards{
+    display: flex;
+    padding: 20px;
+}
+
+.note{
+    flex: 1;
+    margin: 24px;
+    width: 348px;
+    height: 250px;
+    padding: 20px;
+    border-radius: 16px;
+    background-color: #334155;
+    animation-name: entering;
+    animation-duration: 1.5s;    
+}
+
+.noteTitle h3{
+    padding: 5px;
+    color: #E2E8F0;
+    font-weight: 400;
+    border-bottom: 1px solid #fff;
+}
+
+.noteContent p{
+    margin: 5px 10px;
+    color: #64748B;
+}
