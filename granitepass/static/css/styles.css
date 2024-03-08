@@ -99,6 +99,15 @@ button:hover{
     background-color: #295580;
 }
 
+.error-message {
+    background-color: #ffcccc; /* Cor de fundo */
+    color: #cc0000; /* Cor do texto */
+    padding: 10px; /* Espaçamento interno */
+    border: 1px solid #cc0000; /* Borda */
+    border-radius: 5px; /* Borda arredondada */
+    margin-bottom: 10px; /* Espaçamento inferior */
+}
+
 @media screen and (max-width: 920px) {
     
     #container img{

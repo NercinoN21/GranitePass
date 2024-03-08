@@ -4,27 +4,36 @@ Routine responsible for interacting with the database.
 from os import makedirs
 from typing import List
 
-from config import Config
 from tinydb import Query, TinyDB
 
+from granitepass.config import Config
 
-class Database:
+CONFIG = Config()
+
+
+class DataBase:
     """Class to interact with the database"""
 
-    def __init__(self, config: Config) -> None:
+    def __init__(self) -> None:
         """Database connection and defines the tables"""
-        makedirs(config.data_dir, exist_ok=True)
-        self.__tables = config.tables
-        self.__db = TinyDB(config.db_file)
+        makedirs(CONFIG.data_dir, exist_ok=True)
+        self.__tables = CONFIG.tables.values()
+        self.__db = TinyDB(CONFIG.db_file, indent=4)
+
+    def __repr__(self) -> str:
+        """Basic instance representation"""
+        return f'{self.__dict__}'
+
+    def __str__(self) -> str:
+        """Print representation"""
+        return f'{self.__dict__}'
 
     @property
     def tables(self) -> List[str]:
-        """Return the tables"""
         return self.__tables
 
     @property
     def db(self) -> TinyDB:
-        """Return the database connection"""
         return self.__db
 
     def verify_table(self, table: str) -> bool:
@@ -32,7 +41,7 @@ class Database:
         return table in self.tables
 
     def create_query(self, table: str, rule: dict) -> Query:
-        """"Create the "query" if the table is valid"""
+        """ "Create the "query" if the table is valid"""
         if self.verify_table(table):
             return Query().fragment(rule)
 
@@ -44,10 +53,10 @@ class Database:
 
     def create_data(self, table: str, data: dict, rule: dict) -> int:
         """Create data in the selected table if
-           the rule doesn't capture anything
+        the rule doesn't capture anything
 
-           The "rule" refers to checking whether
-           the data is already in the table
+        The "rule" refers to checking whether
+        the data is already in the table
         """
         if self.get_data(table, **rule):
             return 0

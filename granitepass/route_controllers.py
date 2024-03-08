@@ -1,23 +1,13 @@
 """
 Routine responsible for controlling web routes.
 """
-from flask import render_template, request, redirect, url_for, jsonify
+from flask import redirect, render_template, request, url_for
 from flask.views import View
-from granitepass.config import Config
 
+from granitepass.config import Config
+from granitepass.database_controllers import HomePageDataBase, LoginDataBase
 
 CONFIG = Config()
-# For Testing
-credentials = [
-    {'site': 'site1.com', 'user': 'user1', 'password': 'password1'},
-    {'site': 'site2.com', 'user': 'user2', 'password': 'password2'},
-    {'site': 'site3.com', 'user': 'user3', 'password': 'password3'},
-    {'site': 'site4.com', 'user': 'user4', 'password': 'password4'},
-    {'site': 'site5.com', 'user': 'user5', 'password': 'password5'},
-    {'site': 'site6.com', 'user': 'user6', 'password': 'password6'},
-    {'site': 'site6.com', 'user': 'user6', 'password': 'password6'},
-    {'site': 'site7.com', 'user': 'user8', 'password': 'password9'}
-]
 
 
 class IndexController(View):
@@ -81,12 +71,21 @@ class LoginController(View):
         return value.capitalize()
 
     def dispatch_request(self):
-        if request.method == 'POST':
+        if request.method == CONFIG.method_post:
             form_user = request.form[CONFIG.str_user]
             form_password = request.form[CONFIG.str_password]
-            print(f'Credentials: {form_user=} and {form_password=}')
 
-            return redirect(url_for('home_page_controller'))
+            login_database = LoginDataBase(form_user, form_password)
+
+            if login_database.validate_login():
+                return redirect(
+                    url_for(
+                        CONFIG.home_page_controller,
+                        **{CONFIG.str_user: form_user}
+                    )
+                )
+
+            return redirect(url_for(CONFIG.login_controller))
         else:
             self.str_user = self.__capitalize
             self.str_password = self.__capitalize
@@ -99,20 +98,36 @@ class LoginController(View):
                 password=self.str_password,
                 enter_btn=self.enter_btn,
             )
-        
+
 
 class HomePageController(View):
     def dispatch_request(self):
-        return render_template('homepage.html',
-                               credentials=credentials)
+        user = request.args.get(CONFIG.str_user)
+
+        credentials = HomePageDataBase(user).credentials()
+
+        return render_template(
+            CONFIG.homepage_page,
+            credentials=credentials,
+            title=CONFIG.project_name,
+            current_user=user,
+        )
 
 
 class HomePageSearchController(View):
     def dispatch_request(self):
-        if request.method == 'POST':
-            form_search = request.form['search']
-            test_filter = [x for x in credentials if form_search in x['site']]
+        if request.method == CONFIG.method_post:
+            form_search = request.form[CONFIG.str_search]
+            form_current_user = request.form.get(CONFIG.str_current_user)
 
-        return render_template('homepage.html',
-                               credentials=test_filter,
-                               site=form_search,)
+            filter_credentials = HomePageDataBase(form_current_user).search(
+                form_search
+            )
+
+        return render_template(
+            CONFIG.homepage_page,
+            credentials=filter_credentials,
+            site=form_search,
+            title=CONFIG.project_name,
+            current_user=form_current_user,
+        )

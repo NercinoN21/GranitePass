@@ -20,6 +20,7 @@
 
     <form id="searchForm" action="/HomePageSearch" method="POST">
         <div id="inputSearch">
+            <input type="hidden" name="current_user" value="{{ current_user }}">
             <input type="text" name="search" id="search" placeholder="Search for a site...">
         </div>
     </form>
@@ -39,7 +40,7 @@
         {% endfor %}
         
         {% else %}
-            <p id="notFound">You do not have credentials on this site: {{ site }}.</p> 
+            <p id="notFound" style="font-size: 1.2em; font-weight: bold; color: #fff">You do not have credentials on this site: {{ site }}.</p>
         {% endif %}
     </div>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
